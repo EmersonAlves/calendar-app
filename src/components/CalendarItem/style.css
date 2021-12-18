@@ -1,0 +1,62 @@
+.container-calendar > .list-days > li{
+    width: calc((100%) / 7);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.container-calendar > .list-days > li[day='0'],
+.container-calendar > .list-days > li[day='6']{
+    background-color: #ededed;
+}
+
+.container-calendar > .list-days > li > div {
+    border: 1px solid #dadce0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.container-calendar > .list-days > li > div > small{
+    text-align: center;
+    margin: 5px auto;
+    font-size: 9pt;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.container-calendar > .list-days > li[today='1'] > div > small {
+    background-color: rgb(25 128 201);
+    color: #fff;
+    font-weight: bold;
+}
+
+.container-calendar > .list-days > li > div > ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100% - 28px);
+    overflow-y: auto;
+}
+
+.container-calendar > .list-days > li > div > ul::-webkit-scrollbar {
+    width: 5px;
+}
+
+.container-calendar > .list-days > li > div > ul::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.container-calendar > .list-days > li > div > ul::-webkit-scrollbar-thumb {
+    background: rgb(95, 89, 89);
+}
+
+
+.container-calendar > .list-days > li > div > ul::-webkit-scrollbar-thumb:hover {
+    background: rgb(49, 49, 49);
+}

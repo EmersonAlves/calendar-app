@@ -1,0 +1,66 @@
+.container-reminder-detail{
+    display: flex;
+    flex-direction: column;
+}
+
+.container-reminder-detail > ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px ;
+}
+
+
+.container-reminder-detail > ul > li{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.container-reminder-detail > ul > li > div{
+    display: flex;
+    align-items: center;
+}
+
+
+.container-reminder-detail > ul > li > div > svg{
+    font-size: 18pt;
+}
+
+.container-reminder-detail > ul > li > div:first-child{
+    margin-right: 15px;
+}
+
+
+.container-reminder-detail > ul > li > div.reminder-title{
+    font-weight: 500;
+    font-size: 12pt;
+    color: #222;
+    font-family: sans-serif;
+}
+
+.input-group{
+    margin-bottom: 10px;
+}
+
+.input-group > input, 
+.input-group > textarea{
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 5px 0;
+    display: block;
+}
+
+.content-color{
+    margin-top: 10px;
+}
+
+.reminder-detail{
+    margin-top: 10px;
+    margin-left: -10px;
+    margin-right: -10px;
+    border-top: 1px solid #ccc;
+    padding: 10px 10px 0;
+    display: flex;
+    justify-content: flex-end;
+}

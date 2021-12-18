@@ -1,0 +1,64 @@
+.container-modal{
+    position: fixed;
+    overflow-x:hidden;
+    overflow-y: auto;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    z-index: 1000;
+    display: none;
+}
+
+.container-modal.active{
+    display: flex;
+}
+
+.container-modal > .modal-dialog{
+    position: absolute;
+    width: 100%;
+    margin: 0.5rem;
+}
+
+.container-modal > .modal-dialog > .modal-content{
+    background-color: #fff;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.container-modal > .modal-dialog > .modal-content > .modal-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.container-modal > .modal-dialog > .modal-content > .modal-header > button {
+    border: none;
+    background-color: transparent;
+}
+
+.container-modal > .modal-dialog > .modal-content > .modal-header > p{
+    font-size: 14pt;
+    font-weight: 500;
+}
+
+.container-modal > .modal-dialog > .modal-content > .modal-header > button > svg{
+    font-size: 25pt;
+    cursor: pointer;
+}
+
+.container-modal > .modal-dialog > .modal-content > .modal-body{
+    position: relative;
+    padding: 5px 10px;
+}
+
+@media (min-width: 576px) {
+    .container-modal > .modal-dialog{
+        width: 500px;
+        margin-top: 1.75rem;
+    }
+}
