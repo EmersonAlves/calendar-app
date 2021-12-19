@@ -8,3 +8,8 @@ export function ButtonPrimary(props){
 export function ButtonSecondary(props){
     return (<button className="btn btn-secondary" {...props}>{props.children}</button>)
 }
+
+
+export function ButtonDanger(props){
+    return (<button className="btn btn-danger" {...props}>{props.children}</button>)
+}

@@ -1,8 +1,8 @@
-import React, { forwardRef, useImperativeHandle, useState } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { IoIosClose } from 'react-icons/io';
 import "./style.css";
 
-function Modal({title,children},ref){
+function Modal({title,children,onClose},ref){
     const [visible, setVisible] = useState(false);
     
     useImperativeHandle(ref, ()=> ({
@@ -12,7 +12,14 @@ function Modal({title,children},ref){
         hide:() => {
             setVisible(false);
         }
-    }))
+    }));
+
+    useEffect(()=>{
+        if(!visible && onClose){
+            onClose();
+        }
+
+    },[visible])
     
     return (
         <div className={!visible ? "container-modal" : "container-modal active"} >

@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import Modal from "../Modal";
 import { CirclePicker } from 'react-color';
 import "./style.css";
@@ -7,8 +7,8 @@ import {ButtonPrimary, ButtonSecondary} from "../Button";
 import { useApp } from "../../contexts/app";
 import api from "../../services/api";
 
-function AddReminder(props, ref){
-    const {setLoading, updateReminders,getWeather} = useApp();
+function EditReminder(props, ref){
+    const {editReminder, setLoading, updateReminders, setEditReminder,getWeather} = useApp();
     const [title, setTitle] = useState("");
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
@@ -23,6 +23,23 @@ function AddReminder(props, ref){
             modalRef.current.show();
         }
     }));
+
+    useEffect(()=>{
+        if(editReminder){
+            setTitle(editReminder.title);
+            setDate(editReminder.date);
+            setTime(editReminder.time);
+            setCityName(editReminder.cityName);
+            setColor(editReminder.color);
+           
+        }
+    },[editReminder]);
+
+    useEffect(()=>{
+        if(editReminder){
+            modalRef.current.show();
+        }
+    }, [editReminder])
 
     function clearForm(){
         setTitle("");
@@ -47,10 +64,12 @@ function AddReminder(props, ref){
 
         let icon = null;
 
-        if(cityName.trim() !== '')
-            icon = await getWeather(cityName);
+        if(cityName != null)
+            if(cityName.trim() !== '')
+                icon = await getWeather(cityName);
 
-        await api.post('reminder', {...data,icon});
+        
+        await api.put(`reminder/${editReminder.id}`, {...data,icon});
         modalRef.current.hide();
 
         setLoading(false);
@@ -59,7 +78,11 @@ function AddReminder(props, ref){
     }
 
     return (
-        <Modal ref={modalRef} title="Adicionar Lembrete">
+        <Modal 
+            onClose={()=>{
+                setEditReminder(null);
+            }}
+            ref={modalRef} title="Editar Lembrete">
             <div className="container-add-reminder">
                 <form onSubmit={handleReminder}>
                     <div className="input-group">
@@ -120,7 +143,7 @@ function AddReminder(props, ref){
                             Cancelar
                         </ButtonSecondary>
                         <ButtonPrimary>
-                            Adicionar
+                            Atualizar
                         </ButtonPrimary>
                     </div>
                 </form>
@@ -129,4 +152,4 @@ function AddReminder(props, ref){
     );
 }
 
-export default forwardRef(AddReminder);
+export default forwardRef(EditReminder);

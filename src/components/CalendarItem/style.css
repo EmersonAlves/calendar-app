@@ -21,7 +21,6 @@
 .container-calendar > .list-days > li > div > small{
     text-align: center;
     margin: 5px auto;
-    font-size: 9pt;
     width: 25px;
     height: 25px;
     display: flex;
@@ -40,7 +39,7 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    max-height: calc(100% - 28px);
+    max-height: calc(100% - 50px);
     overflow-y: auto;
 }
 

@@ -14,7 +14,12 @@
 .container-reminder-detail > ul > li{
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+}
+
+.container-reminder-detail > ul > li > img {
+    background-color: #a5cdef;
+    border-radius: 5px;
 }
 
 .container-reminder-detail > ul > li > div{
@@ -24,7 +29,7 @@
 
 
 .container-reminder-detail > ul > li > div > svg{
-    font-size: 18pt;
+    font-size: 12pt;
 }
 
 .container-reminder-detail > ul > li > div:first-child{
@@ -34,9 +39,10 @@
 
 .container-reminder-detail > ul > li > div.reminder-title{
     font-weight: 500;
-    font-size: 12pt;
+    font-size: 15pt;
     color: #222;
     font-family: sans-serif;
+    text-transform: capitalize;
 }
 
 .input-group{
@@ -63,4 +69,25 @@
     padding: 10px 10px 0;
     display: flex;
     justify-content: flex-end;
+}
+
+.detail-reminder-footer{
+    border-top: 1px solid #ccc;
+    margin-left: -10px;
+    margin-right: -10px;
+    padding: 10px;
+    display: flex;
+}
+
+.detail-reminder-footer > button{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail-reminder-footer > button > svg{
+    font-size: 12pt;
+    margin-left: -10px;
+    margin-right: 10px;
 }

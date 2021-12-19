@@ -1,10 +1,8 @@
-import React, { useRef } from "react";
+import React from "react";
 import ReminderCard from "../ReminderCard";
-import ReminderDetail from "../ReminderDetail";
 import "./style.css";
 
-function CalendarItem({item, onClick}){
-    const reminderDetailRef = useRef();
+function CalendarItem({item, reminders, onClick}){
     const today = new Date();
 
     return (
@@ -15,11 +13,16 @@ function CalendarItem({item, onClick}){
             today={today.toLocaleDateString() === item.toLocaleDateString() ? '1' : '0'}>
                 <div>
                     <small>{item.getDate()}</small>
-                    <ReminderDetail ref={reminderDetailRef} />
                     <ul>
-                        <ReminderCard onClick={(event)=>{
-                            reminderDetailRef.current.show();
-                        }} />
+                        {reminders.map(reminder=>{
+                            return (
+                                <ReminderCard 
+                                    reminder={reminder}
+                                    key={reminder.id}
+                                />
+                            )
+                        })}
+                        
                     </ul>
                 </div>
         </li>);

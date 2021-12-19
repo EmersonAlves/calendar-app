@@ -1,56 +1,90 @@
-import React, { forwardRef, useImperativeHandle, useRef } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import Modal from "../Modal";
 import "./style.css";
 import { RiCheckboxBlankCircleFill , RiCalendar2Fill ,RiMapPinFill , RiDeleteBin5Line} from "react-icons/ri";
 import {MdOutlineModeEditOutline} from "react-icons/md";
-import {ButtonPrimary, ButtonSecondary} from "../Button";
+import {ButtonDanger, ButtonPrimary} from "../Button";
+import { useApp } from "../../contexts/app";
+import api from "../../services/api";
 
 function ReminderDetail(props, ref){
-
+    const {reminder,setEditReminder, setReminder, setLoading, updateReminders} = useApp();
     const modalRef = useRef();
     useImperativeHandle(ref, ()=>({
         show:()=>{
             modalRef.current.show();
         }
-    }))
+    }));
+
+    useEffect(()=>{
+        if(reminder){
+            modalRef.current.show();
+        }else{
+            modalRef.current.hide();
+        }
+    },[reminder]);
+
+
+    async function handleRemoveReminder(id){
+        setLoading(true);
+        await api.delete(`reminder/${id}`);
+        setLoading(false);
+        modalRef.current.hide();
+        setReminder(null);
+        updateReminders();
+    }
+
     return (
-        <Modal ref={modalRef} title="Detalhes do lembrete">
+        <Modal 
+            onClose={()=>{
+                setReminder(null);
+            }} 
+            ref={modalRef} 
+            title="Detalhes do lembrete">
             <div className="container-reminder-detail">
                 <ul>
                     <li>
                         <div>
-                            <RiCheckboxBlankCircleFill />
+                            <RiCheckboxBlankCircleFill style={{ color: reminder ? reminder.color : "#000"}} />
                         </div>
                         <div className="reminder-title">
-                            Evento de teste exemplo
+                            {reminder ? reminder.title : ""}
                         </div>
                     </li>                    
                     <li>
                         <div>
                             <RiCalendar2Fill />
                         </div>
-                        <div className="reminder-title">
-                            19/12/2021 10:00
+                        <div>
+                            {reminder ? reminder.reminderDate.toLocaleString() : ""}
                         </div>
                     </li>
                     <li>
                         <div>
                             <RiMapPinFill />
                         </div>
-                        <div className="reminder-title">
-                            Fortaleza
+                        <div>
+                        {reminder ? reminder.cityName  != null ? reminder.cityName : "Não informado" : ""}
                         </div>
                     </li>
+                    <li>
+                        {reminder ? reminder.icon  != null ? <img src={reminder.icon} /> : "" : ""}
+                    </li>
                 </ul>
-                <div className="add-reminder-footer">
-                    <ButtonSecondary type="button" onClick={()=> modalRef.current.hide()}>
+                <div className="detail-reminder-footer">
+                    <ButtonPrimary type="button" onClick={()=>{ 
+                            setEditReminder(reminder);
+                            modalRef.current.hide()
+                        }}>
                         <MdOutlineModeEditOutline />
                         Editar lembrete
-                    </ButtonSecondary>
-                    <ButtonPrimary>
+                    </ButtonPrimary>
+                    <ButtonDanger onClick={()=>{
+                        handleRemoveReminder(reminder.id);
+                    }}>
                         <RiDeleteBin5Line />
                         Excluir lembrete
-                    </ButtonPrimary>
+                    </ButtonDanger>
                 </div>
             </div>
         </Modal>

@@ -1,15 +1,20 @@
 import React from "react";
+import { useApp } from "../../contexts/app";
 import "./style.css";
 
-export default function ReminderCard({onClick}){
+export default function ReminderCard({reminder}){
+    const {setReminder} = useApp();
+
     return (
         <li 
+            style={{backgroundColor: reminder.color}}
             className="reminder-card-item" 
             onClick={(event)=>{
                 event.stopPropagation();
-                onClick();
+                setReminder(reminder);
             }}>
-                <p>Reunião as 12pm, teste aqui para tamanho do texto</p>
+                <p>{reminder.title}</p>
+                {reminder.icon ? <img src={reminder.icon} /> : null}
         </li>
         );
 }
